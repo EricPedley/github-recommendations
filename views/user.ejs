@@ -17,6 +17,14 @@
            </a>
         <%}%>
     </p>
+    <p>You are following
+        <% for (const follow of following) { %>
+           <a href="<%=follow.html_url%>">
+                <img src="<%=follow.avatar_url%>">
+                <%=follow.login%>
+           </a>
+        <%}%>
+    </p>
     <a href="/">Back</a>
     </body>
 </html>
