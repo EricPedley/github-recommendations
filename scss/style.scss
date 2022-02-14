@@ -1,7 +1,7 @@
-@import "../node_modules/bootstrap/scss/bootstrap";
 
-div {
-    background-color: red;
+body {
+    background-color: black;
+    color:white;
 }
 
 img {
@@ -10,4 +10,9 @@ img {
 
 a {
     display:block;
+}
+
+#mainForm {
+    text-align: center;
+    font-size: large;
 }
