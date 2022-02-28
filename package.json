@@ -5,18 +5,20 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "dev": "concurrently -n \"SASS,NODEMON\" \"npm run watch:sass\" \"nodemon\"",
     "test": "jest",
     "compile:sass": "sass scss:public/css",
     "watch:sass": "sass --watch scss:public/css",
     "build": "webpack"
   },
   "keywords": [],
-  "author": "",
+  "author": "Eric Pedley",
   "license": "ISC",
   "devDependencies": {
     "jest": "^27.5.0",
     "sass": "^1.49.7",
-    "webpack": "^5.68.0"
+    "webpack": "^5.68.0",
+    "concurrently": "^7.0.0"
   },
   "dependencies": {
     "bootstrap": "^5.1.3",
