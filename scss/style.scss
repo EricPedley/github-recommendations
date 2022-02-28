@@ -2,9 +2,11 @@
 body {
     background-color: black;
     color:white;
+    font-family:"Consolas", monospace;
+    overflow-y: hidden;
 }
 
-img {
+.icon {
     max-height:2em;
 }
 
@@ -13,6 +15,15 @@ a {
 }
 
 #mainForm {
-    text-align: center;
+    // text-align: center;
     font-size: large;
+    height:70%;
+}
+
+svg {
+    display:inline;
+}
+
+#gh-icon {
+    margin:10px;
 }
