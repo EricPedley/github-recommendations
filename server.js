@@ -1,7 +1,7 @@
-import express from 'express';
-import { getConnections } from './ghapi.js';
+const express = require('express');
+const { getConnections, getNOrderConnections } = require('./ghapi');
 
-if(process.env.NODE_ENVIRONMENT === "development") {
+if(process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 const app = express();
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 
 app.get('/user', async (req, res) => {
   const username = req.query.username;
-  const connections = await getConnections(username);
+  const connections = await getNOrderConnections(username,2);
   res.render('user', {username, connections: Object.values(connections)});
 });
 

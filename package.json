@@ -15,17 +15,16 @@
   "author": "Eric Pedley",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^7.0.0",
     "jest": "^27.5.0",
     "sass": "^1.49.7",
-    "webpack": "^5.68.0",
-    "concurrently": "^7.0.0"
+    "webpack": "^5.68.0"
   },
   "dependencies": {
     "bootstrap": "^5.1.3",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
-    "node-fetch": "^3.2.0"
-  },
-  "type": "module"
+    "node-fetch": "^2.6.7"
+  }
 }
