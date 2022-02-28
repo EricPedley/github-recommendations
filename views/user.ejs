@@ -6,19 +6,11 @@
 </head>
 <body>
     <h1>Hello, <%=username%></h1>
-    <p>Your followers are 
-        <% for (const follower of followers) { %>
-           <a href="<%=follower.html_url%>">
-                <img class="icon" src="<%=follower.avatar_url%>">
-                <%=follower.login%>
-           </a>
-        <%}%>
-    </p>
-    <p>You are following
-        <% for (const follow of following) { %>
-           <a href="<%=follow.html_url%>">
-                <img img class="icon" src="<%=follow.avatar_url%>">
-                <%=follow.login%>
+    <p>Your are followed by or following: 
+        <% for (const connection of connections) { %>
+           <a href="<%=connection.html_url%>">
+                <img class="icon" src="<%=connection.avatar_url%>">
+                <%=connection.login%>
            </a>
         <%}%>
     </p>
