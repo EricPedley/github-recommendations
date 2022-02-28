@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('meta') %>
+    <%- include('components/meta') %>
     <title>Document</title>
 </head>
 <body>
@@ -9,7 +9,7 @@
     <p>Your followers are 
         <% for (const follower of followers) { %>
            <a href="<%=follower.html_url%>">
-                <img src="<%=follower.avatar_url%>">
+                <img class="icon" src="<%=follower.avatar_url%>">
                 <%=follower.login%>
            </a>
         <%}%>
@@ -17,7 +17,7 @@
     <p>You are following
         <% for (const follow of following) { %>
            <a href="<%=follow.html_url%>">
-                <img src="<%=follow.avatar_url%>">
+                <img img class="icon" src="<%=follow.avatar_url%>">
                 <%=follow.login%>
            </a>
         <%}%>
