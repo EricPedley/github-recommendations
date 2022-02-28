@@ -5,15 +5,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello, <%=username%></h1>
-    <p>Your are followed by or following: 
-        <% for (const connection of connections) { %>
-           <a href="<%=connection.html_url%>">
-                <img class="icon" src="<%=connection.avatar_url%>">
-                <%=connection.login%>
-           </a>
-        <%}%>
-    </p>
-    <a href="/">Back</a>
-    </body>
+    <div class="container fit-width">
+        <h1 >Hello, <%=username%></h1>
+        <p>Your are followed by or following:
+            <% for (const connection of connections) { %>
+            <a href="<%=connection.html_url%>">
+                    <img class="icon" src="<%=connection.avatar_url%>">
+                    <%=connection.login%>
+            </a>
+            <%}%>
+        </p>
+        <a href="/">Back</a>
+    </div>
+</body>
 </html>
