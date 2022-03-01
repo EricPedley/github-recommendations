@@ -7,4 +7,4 @@ To run it locally, clone it then run `npm i` then `npm start` in the project roo
 
 To view the live demo, visit [fluffy-glorious-armchair.glitch.me](https://fluffy-glorious-armchair.glitch.me/)
 
-Usually getting all the data takes a while; it takes about 1-2 minutes using my handle, `EricPedley`, with a degree of separation of 2. Speed was one of the biggest hurdles in making this project. I managed to get some speedup by making requests concurrently with Promise.all.
+Usually getting all the data takes a while; it takes about 1-2 minutes using my handle, `EricPedley`, with a degree of separation of 2. Speed was one of the biggest hurdles in making this project. I managed to get some speedup by making requests concurrently with `Promise.all`, and by caching requests in RAM on the server (which is why it's so fast in the demo gif).
