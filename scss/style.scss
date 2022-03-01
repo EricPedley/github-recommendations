@@ -63,11 +63,20 @@ svg {
     border-radius: 10px;
 }
 
+.dim-color {
+    color:$dim-color;
+}
+
 .mutuals {
     margin-left:1rem;
-    color:$dim-color;
 }
 
 .connection>h4 {
     display:inline;
+}
+
+#footer {
+    max-width:50%;
+    margin: auto auto;
+    margin-top:100px;
 }

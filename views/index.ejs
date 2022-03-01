@@ -15,13 +15,13 @@
         </h1>        
     </header>
     <div class="container">
-        <div class="row justify-content-center align-items-center" id="mainRow">
+        <div class="row" id="mainRow">
             <div class="col fit-width" id="mainForm">
                 <br>
                 <div>Enter your Github username</div>
                 <form action = "user">
                     <input name="username" type="txt" value="<%=username%>">
-                    <div>Select how many degrees of separation you want to search</div>
+                    <div>Select degrees of separation</div>
                     <select name="depth">
                         <option value="1">1</option>
                         <option value="2" selected>2</option>
@@ -31,6 +31,16 @@
                     <input type="submit" onclick="startLoading()">
                 </form>
             </div>
+        </div>
+        <div class="row" id="footer">
+            <h3>About</h3>
+            <p class="dim-color">
+            Enter your username and see other GitHub users you 
+            might know based on mutual followers / following.
+            The degrees of separation are how many followers down the chain these people are.
+            At degree 1, it only shows your immediately connections (followers and following). 
+            At degree 2, it shows the following and followers of the degree 1 users. At degree 3, it shows degree 2, plus their connections.
+            </p>
         </div>
     </div>
     <%- include('components/loading') %>
