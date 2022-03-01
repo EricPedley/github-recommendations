@@ -1,6 +1,6 @@
 body {
-  background-color: black;
-  color: white;
+  background-color: #28292a;
+  color: #e4e4e4;
   font-family: "Consolas", monospace;
   align-items: center;
   margin: 0;
@@ -24,10 +24,6 @@ div.container {
 .fit-width {
   max-width: fit-content;
   margin: auto auto;
-}
-
-a {
-  display: block;
 }
 
 #mainForm {
@@ -57,10 +53,19 @@ svg {
 }
 
 #loading > h1 {
-  background-color: white;
-  color: black;
+  background-color: #e4e4e4;
+  color: #28292a;
   padding: 10px;
   border-radius: 10px;
+}
+
+.mutuals {
+  margin-left: 1rem;
+  color: #b3afa7;
+}
+
+.connection > h4 {
+  display: inline;
 }
 
 /*# sourceMappingURL=style.css.map */

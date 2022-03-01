@@ -1,7 +1,9 @@
-
+$accent-color: rgb(228, 228, 228);
+$dim-color: rgb(179, 175, 167);
+$main-color: rgb(40, 41, 42);
 body {
-    background-color: black;
-    color:white;
+    background-color: $main-color;
+    color: $accent-color;
     font-family:"Consolas", monospace;
     align-items: center;
     margin:0;
@@ -26,10 +28,6 @@ div.container {
 .fit-width {
     max-width:fit-content;
     margin: auto auto;
-}
-
-a {
-    display:block;
 }
 
 #mainForm {
@@ -59,8 +57,17 @@ svg {
 }
 
 #loading>h1 {
-    background-color: white;
-    color:black;
+    background-color: $accent-color;
+    color: $main-color;
     padding:10px;
     border-radius: 10px;
+}
+
+.mutuals {
+    margin-left:1rem;
+    color:$dim-color;
+}
+
+.connection>h4 {
+    display:inline;
 }
