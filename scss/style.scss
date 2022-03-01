@@ -32,7 +32,7 @@ div.container {
 
 #mainForm {
     font-size: large;
-    height:10%;
+    height:-10%;
 }
 
 svg {
@@ -76,9 +76,9 @@ svg {
 }
 
 #footer {
-    max-width:50%;
+    max-width:max(50%,400px);
     margin: auto auto;
-    margin-top:100px;
+    margin-top:20px;
 }
 
 /* width */
