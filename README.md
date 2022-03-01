@@ -1,4 +1,5 @@
 # Supplyframe Full Stack Intern Challenge
+![Demo gif](https://user-images.githubusercontent.com/48658337/156122410-80581d37-0ee9-4b71-90d5-3a6ef465f72c.gif)
 
 Uses the github api to find recommended people to follow on github, similar to how Facebook or LinkedIn find people you might know based on mutual friends or connections. It will also show you the mutual followers/following you have with those recommended people.
 
