@@ -25,4 +25,4 @@ app.get('/user', async (req, res) => {
 const port = process.env.PORT||3000;
 app.listen(port, () => console.log(`Listening on ${port}`));
 
-//check rate limit: curl -H "Authorization: token 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" -X GET https://api.github.com/rate_limit
+//check rate limit: curl -H "Authorization: token {}" -X GET https://api.github.com/rate_limit
