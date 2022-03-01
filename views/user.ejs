@@ -8,7 +8,7 @@
     <div class="container fit-width">
         <h1 >Hello, <%=username%></h1>
         Here are some people you might know:
-            <% for (const connection of connections) { %>
+            <% for (const connection of connections.slice((page-1)*pageLength, page*pageLength)) { %>
                 <div>
                     <img class="icon" src="<%=connection.avatar_url%>">
                     <a class="connection" target = "__blank" href="<%=connection.html_url%>">
@@ -24,11 +24,23 @@
                                 <% } %>
                             </ul>
                     <%} else {%>
-                        No mutual connections found (possible API timeout)
+                        No mutual connections found 
+                        <% if(depth!=1) {%>
+                            (possible API timeout)
+                        <%}%>
                     <%}%>
                 </div>
             <%}%>
-        <a href="/?username=<%=username%>">Back</a>
+        <div> Page <%=page%> of <%=Math.ceil(connections.length/pageLength)%></div>
+        <div>
+            <% if (page!=1) {%>
+                <a href="<%=`/user?username=${username}&depth=${depth}&page=${page-1}`%>">Prev</a>
+            <%}%>
+            <% if (page*pageLength<connections.length) {%>
+                <a href="<%=`/user?username=${username}&depth=${depth}&page=${page+1}`%>">Next</a>
+            <%}%>
+        </div>
+        <a id="back-button" href="/?username=<%=username%>">Landing Page</a>
     </div>
 </body>
 </html>

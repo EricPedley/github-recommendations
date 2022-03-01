@@ -81,13 +81,23 @@ svg {
     margin-top:20px;
 }
 
-/* width */
 ::-webkit-scrollbar {
     width: 10px;
-    opacity: 10%;
 }
   
-/* Handle */
 ::-webkit-scrollbar-thumb {
     background: grey;
+}
+
+#back-button {
+    display:inline-block;
+    margin-top:20px;
+}
+
+a {
+    color:rgb(156, 193, 194);
+}
+
+a:hover {
+    color:cadetblue;
 }

@@ -52,9 +52,51 @@ async function getConnections(username) {
     }
 }
 
-async function getInfo(username) {
-    const res = await apiRequest(`users/${username}`);
-    return {name: res.name, bio: res.bio};
+const nOrderConnectionsCache = {};
+
+async function getNOrderConnections(username, n) {
+    if(nOrderConnectionsCache[`${n}${username}`])
+        return nOrderConnectionsCache[`${n}${username}`];
+    const initialN = n;
+    const yourConnections = await getConnections(username);
+    let exploration = new Set(Object.keys(yourConnections));
+    const visited = new Set([username]);
+    const userInfo = JSON.parse(JSON.stringify(yourConnections));//janky deep copy
+    for(const u in userInfo) {
+        userInfo[u].mutualConnections=[];
+    }
+    while (n-- > 0) {
+        const newExploration = new Set();
+        await Promise.all(Array.from(exploration.values()).map(async (baseUser)=> {
+            visited.add(baseUser);
+            const newConnections = await getConnections(baseUser);
+            for (const newUser in newConnections) {
+                if(newUser in yourConnections) {
+                    userInfo[baseUser].mutualConnections.push(newConnections[newUser]);
+                }
+                if (!visited.has(newUser) && !exploration.has(newUser)) {
+                    newExploration.add(newUser);
+                    userInfo[newUser] = {...newConnections[newUser],mutualConnections:[]};
+                }
+            }
+            return baseUser;
+        }));
+        exploration = newExploration;
+    }
+    visited.delete(username);
+    if(initialN!=1) {
+        for(const connection in yourConnections) {
+            visited.delete(connection);
+        }
+    }
+    const returnVal = Array.from(visited.values()).reduce((accumulator, curUser)=> {
+        accumulator[curUser] = userInfo[curUser];
+        if(userInfo[curUser].mutualConnections.length==0) {
+        }
+        return accumulator;
+    },{});
+    nOrderConnectionsCache[`${n}${username}`]=returnVal;
+    return returnVal;
 }
 
 
@@ -62,44 +104,5 @@ module.exports = {
     getFollowers,
     getFollowing,
     getConnections,
-    async getNOrderConnections(username, n) {
-        const initialN = n;
-        const yourConnections = await getConnections(username);
-        let exploration = new Set(Object.keys(yourConnections));
-        const visited = new Set([username]);
-        const userInfo = JSON.parse(JSON.stringify(yourConnections));//janky deep copy
-        for(const u in userInfo) {
-            userInfo[u].mutualConnections=[];
-        }
-        while (n-- > 0) {
-            const newExploration = new Set();
-            await Promise.all(Array.from(exploration.values()).map(async (baseUser)=> {
-                visited.add(baseUser);
-                const newConnections = await getConnections(baseUser);
-                for (const newUser in newConnections) {
-                    if(newUser in yourConnections) {
-                        userInfo[baseUser].mutualConnections.push(newConnections[newUser]);
-                    }
-                    if (!visited.has(newUser) && !exploration.has(newUser)) {
-                        newExploration.add(newUser);
-                        userInfo[newUser] = {...newConnections[newUser],mutualConnections:[]};
-                    }
-                }
-                return baseUser;
-            }));
-            exploration = newExploration;
-        }
-        visited.delete(username);
-        if(initialN!=1) {
-            for(const connection in yourConnections) {
-                visited.delete(connection);
-            }
-        }
-        return Array.from(visited.values()).reduce((accumulator, curUser)=> {
-            accumulator[curUser] = userInfo[curUser];
-            if(userInfo[curUser].mutualConnections.length==0) {
-            }
-            return accumulator;
-        },{});
-    }
+    getNOrderConnections
 }
