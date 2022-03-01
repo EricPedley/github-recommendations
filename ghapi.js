@@ -42,13 +42,8 @@ async function getConnections(username) {
     try {
         const followers = await getFollowers(username);
         const following = await getFollowing(username);
-        const combined = [];
-        if(followers)
-            combined.concat(followers);
-        if(following)
-            combined.concat(following);
         const res = {};
-        for (const follow of combined) {
+        for (const follow of [...followers, ...following]) {
             res[follow.login] = follow;
         }
         connectionsCache[username]=res;
