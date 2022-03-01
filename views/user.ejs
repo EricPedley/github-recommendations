@@ -13,9 +13,10 @@
                     <img class="icon" src="<%=connection.avatar_url%>">
                     <%=connection.login%>
             </a>
+            |Mutual Connections: <%=connection.mutualConnections.length %>
             <%}%>
         </p>
-        <a href="/">Back</a>
+        <a href="/?username=<%=username%>">Back</a>
     </div>
 </body>
 </html>
