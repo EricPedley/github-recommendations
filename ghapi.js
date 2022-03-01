@@ -12,25 +12,24 @@ async function apiRequest(path) {
     });
 }
 
-async function getFollowers(username, page=1) {
-    const res = await apiRequest(`users/${username}/followers`).then(r => r.json())
-    console.log(res)
-    if(res.length==30) {
-        console.log("YO")
-        // const additionalRes = getFollowers(username, page+1);
-        // res.push(...additionalRes);
+function makePaginatedRequester(endpoint) {
+    return async function paginatedRequest(username, page=1) {
+        const res = await apiRequest(`users/${username}/${endpoint}?page=${page}`).then(r => r.json())
+        try {
+            if(res.length==30) {
+                const additionalRes = await paginatedRequest(username, page+1);
+                res.push(...additionalRes);
+            }
+        } catch(e) {
+            console.trace(e);
+        } finally {
+            return res;
+        }
     }
-    return res;
 }
 
-async function getFollowing(username) {
-    const res = await apiRequest(`users/${username}/following?page=${page}`).then(r => r.json())
-    if(res.length==30) {
-        const additionalRes = getFollowing(username, page+1);
-        res.push(...additionalRes);
-    }
-    return res;
-}
+const getFollowers = makePaginatedRequester("followers");
+const getFollowing = makePaginatedRequester("following");
 
 const connectionsCache = {};
 
@@ -38,14 +37,18 @@ async function getConnections(username) {
     if(connectionsCache[username]) {
         return connectionsCache[username];
     }
-    const followers = await getFollowers(username);
-    const following = await getFollowing(username);
-    const res = {};
-    for (const follow of [...followers, ...following]) {
-        res[follow.login] = follow;
+    try {
+        const followers = await getFollowers(username);
+        const following = await getFollowing(username);
+        const res = {};
+        for (const follow of [...followers, ...following]) {
+            res[follow.login] = follow;
+        }
+        connectionsCache[username]=res;
+        return res;
+    } catch(e) {
+        console.trace(e);
     }
-    connectionsCache[username]=res;
-    return res;
 }
 
 async function getInfo(username) {
@@ -53,11 +56,12 @@ async function getInfo(username) {
     return {name: res.name, bio: res.bio};
 }
 
-getFollowers("ComBarnea").then(l=>console.log(l.length));
 
 module.exports = {
+    getFollowers,
     getConnections,
     async getNOrderConnections(username, n) {
+        const initialN = n;
         const yourConnections = await getConnections(username);
         let exploration = new Set(Object.keys(yourConnections));
         const visited = new Set([username]);
@@ -67,7 +71,7 @@ module.exports = {
         }
         while (n-- > 0) {
             const newExploration = new Set();
-            for (const baseUser of exploration) {
+            await Promise.all(Array.from(exploration.values()).map(async (baseUser)=> {
                 visited.add(baseUser);
                 const newConnections = await getConnections(baseUser);
                 for (const newUser in newConnections) {
@@ -79,10 +83,16 @@ module.exports = {
                         userInfo[newUser] = {...newConnections[newUser],mutualConnections:[]};
                     }
                 }
-            }
+                return baseUser;
+            }));
             exploration = newExploration;
         }
         visited.delete(username);
+        if(initialN!=1) {
+            for(const connection in yourConnections) {
+                visited.delete(connection);
+            }
+        }
         return Array.from(visited.values()).reduce((accumulator, curUser)=> {
             accumulator[curUser] = userInfo[curUser];
             if(userInfo[curUser].mutualConnections.length==0) {
