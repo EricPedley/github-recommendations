@@ -3,6 +3,7 @@
 <head>
     <%- include('components/meta') %>
     <title>Document</title>
+    <script src="js/index.js"></script>
 </head>
 <body>
     <header>
@@ -27,10 +28,11 @@
                         <option value="3">3</option>
                     </select>
                     <br><br>
-                    <input type="submit">
+                    <input type="submit" onclick="startLoading()">
                 </form>
             </div>
         </div>
     </div>
+    <%- include('components/loading') %>
 </body>
 </html>
