@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/user', async (req, res) => {
-  const username = req.query.username;
+  const username = req.query.username||"";
   const connections = await getNOrderConnections(username,req.query.depth);
   console.log(connections);
   res.render('user', {username, connections: Object.values(connections)});
