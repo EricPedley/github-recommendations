@@ -7,15 +7,27 @@
 <body>
     <div class="container fit-width">
         <h1 >Hello, <%=username%></h1>
-        <p>Your are followed by or following:
+        Here are some people you might know:
             <% for (const connection of connections) { %>
-            <a href="<%=connection.html_url%>">
+                <div>
                     <img class="icon" src="<%=connection.avatar_url%>">
-                    <%=connection.login%>
-            </a>
-            |Mutual Connections: <%=connection.mutualConnections.length %>
+                    <a class="connection" target = "__blank" href="<%=connection.html_url%>">
+                            <h4><%=connection.login%></h4>
+                    </a>
+                </div>
+                <div class="mutuals">
+                    <% if (connection.mutualConnections.length > 0) {%>
+                        Mutual Connections(<%=connection.mutualConnections.length%>):
+                            <ul>
+                                <% for(const mutual of connection.mutualConnections) {%>
+                                    <li><%=mutual.login%></li>
+                                <% } %>
+                            </ul>
+                    <%} else {%>
+                        No mutual connections
+                    <%}%>
+                </div>
             <%}%>
-        </p>
         <a href="/?username=<%=username%>">Back</a>
     </div>
 </body>
