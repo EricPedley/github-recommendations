@@ -1,0 +1,46 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: "Consolas", monospace;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.icon {
+  max-height: 2em;
+  border-radius: 50%;
+}
+
+div.container {
+  height: 80%;
+}
+
+#mainRow {
+  height: 60%;
+}
+
+.fit-width {
+  max-width: fit-content;
+  margin: auto auto;
+}
+
+a {
+  display: block;
+}
+
+#mainForm {
+  font-size: large;
+  height: 10%;
+}
+
+svg {
+  display: inline;
+}
+
+#gh-icon {
+  margin: 10px;
+}
+
+/*# sourceMappingURL=style.css.map */
