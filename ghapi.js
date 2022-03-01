@@ -13,13 +13,12 @@ async function apiRequest(path) {
 }
 
 function makePaginatedRequester(endpoint) {
-    const perPage = 100;
-    return async function paginatedRequest(username, page=1) {
+    return async function paginatedRequest(username, page=1, perPage=100) {
         //slow pagination because we have to wait for one request to finish to know if we need to fetch the next page 😢
         const res = await apiRequest(`users/${username}/${endpoint}?page=${page}&per_page=${perPage}`).then(r => r.json())
         try {
             if(res.length==perPage) {
-                const additionalRes = await paginatedRequest(username, page+1);
+                const additionalRes = await paginatedRequest(username, page+1,perPage);
                 res.push(...additionalRes);
             }
         } catch(e) {
@@ -61,6 +60,7 @@ async function getInfo(username) {
 
 module.exports = {
     getFollowers,
+    getFollowing,
     getConnections,
     async getNOrderConnections(username, n) {
         const initialN = n;
